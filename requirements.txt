@@ -5,6 +5,7 @@ ultralytics
 
 streamlit
 streamlit_webrtc
+slack_sdk
 
 torch
 torchvision
