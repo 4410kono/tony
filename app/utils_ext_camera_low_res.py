@@ -73,32 +73,34 @@ def play_webcam(conf, model):   # Streamlit on cloud (global)
 
         return av.VideoFrame.from_ndarray(res_plotted, format="bgr24"), res
 
+    st.write(video_frame_callback)
+    print(video_frame_callback)
 
-    webrtc_streamer(
-        key="example",
-        # video_transformer_factory=lambda: MyVideoTransformer(conf, model),
-        video_frame_callback = video_frame_callback[0],
-        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-        media_stream_constraints={
-                                    "video": {
-                                        "width": {"max": 360},
-                                        "height": {"max": 270}
-                                    },
-                                    "audio": False
-                                },
-    )
+    # webrtc_streamer(
+    #     key="example",
+    #     # video_transformer_factory=lambda: MyVideoTransformer(conf, model),
+    #     video_frame_callback = video_frame_callback[0],
+    #     rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+    #     media_stream_constraints={
+    #                                 "video": {
+    #                                     "width": {"max": 360},
+    #                                     "height": {"max": 270}
+    #                                 },
+    #                                 "audio": False
+    #                             },
+    # )
 
-    resultholder = st.empty()
+    # resultholder = st.empty()
 
-    client = WebhookClient(os.environ["SLACK_WEBHOOK_URL"])
-    result_object = video_frame_callback[1]
-    # get the class id
-    class_ids = result_object.boxes.cls
+    # client = WebhookClient(os.environ["SLACK_WEBHOOK_URL"])
+    # result_object = video_frame_callback[1]
+    # # get the class id
+    # class_ids = result_object.boxes.cls
 
-    # get a dictionay of all class names
-    class_names_dict = result_object.names
+    # # get a dictionay of all class names
+    # class_names_dict = result_object.names
 
-    for class_id in class_ids:
-        class_name = class_names_dict[int(class_id)]
-        # results.append(class_name)
-        resultholder.write(class_name)
+    # for class_id in class_ids:
+    #     class_name = class_names_dict[int(class_id)]
+    #     # results.append(class_name)
+    #     resultholder.write(class_name)
